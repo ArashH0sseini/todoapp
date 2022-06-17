@@ -21,6 +21,15 @@ function App() {
     )
   }
 
+  const editTodo = (key, text) => {
+    let item = todos.find(item => item.key === key)
+    item.text = text;
+
+    let newTodos = todos.filter(item => item.key !== key)
+
+    setTodos([...newTodos, item])
+  }
+
   const toggleTodo = (key) => {
     let item = todos.find(item => item.key === key)
     item.done = !item.done;
@@ -54,7 +63,7 @@ function App() {
             </nav>
             {
               filterTodos.length === 0 ? <p className='text-center bg-white/20 text-white p-4 rounded-md'>There isnt any todos</p> :
-                filterTodos.map(item => <Todo key={item.key} items={item} delete={deleteTodo} done={toggleTodo} />)
+                filterTodos.map(item => <Todo key={item.key} items={item} delete={deleteTodo} done={toggleTodo} edit={editTodo} />)
             }
           </div>
         </section>
