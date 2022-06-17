@@ -22,7 +22,7 @@ export default function FormAddTodo({ add }) {
           />
           <button
             type="submit"
-            className="bg-pink-700 text-white px-5 py-3 rounded-md mx-2"
+            className="bg-red-800 text-white px-5 py-3 rounded-md mx-2"
           >
             add
           </button>
