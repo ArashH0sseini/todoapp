@@ -13,7 +13,7 @@ const EditTodos = (props) => {
           className="bg-blue-600 p-2 px-4 text-white rounded-lg"
           onClick={() => props.edit(text)}
         >
-          edit
+          change
         </button>
       </div>
     </div>
