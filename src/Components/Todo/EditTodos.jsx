@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState } from "react";
 
 const EditTodos = (props) => {
   const [text, setText] = useState(props.text);
@@ -6,7 +6,11 @@ const EditTodos = (props) => {
   return (
     <div className="flex bg-white/20 mt-5 rounded-md p-2 justify-between items-center">
       <div className="text-white">
-        <input className="text-black rounded-md p-1 focus:outline-none" value={text} onChange={inputHandler} />
+        <input
+          className="text-black rounded-md p-1 focus:outline-none"
+          value={text}
+          onChange={inputHandler}
+        />
       </div>
       <div className="flex space-x-2">
         <button

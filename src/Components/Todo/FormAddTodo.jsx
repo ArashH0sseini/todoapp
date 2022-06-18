@@ -1,13 +1,20 @@
 import React, { useState, useContext } from "react";
 import TodosContext from "../../Contexts/todos";
+import todosApi from '../../Api/todos'
 
 export default function FormAddTodo() {
   const [text, setText] = useState("");
   const todosContext = useContext(TodosContext);
   const formInputHandler = (e) => {
     e.preventDefault();
-    todosContext.dispatch({ type: "add_todo", payload: { text } });
+    //ajax
+    if(text.length>1){
+      let todo = { text, done: false };
+      todosApi.post(`/todos.json`,todo)
+      .then(response => todosContext.dispatch({type: "add_todo", payload: { todo: { ...todo, key: response.data.name } }}))
+      .catch(err => console.log(err));
     setText("");
+    }
   };
 
   const InputHandler = (e) => setText(e.target.value);

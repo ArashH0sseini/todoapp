@@ -1,32 +1,34 @@
 function AppReducer(prevState, action) {
     switch (action.type) {
+        case 'init_todo' : 
+        let {todos} = action.payload;
+        return {
+            ...prevState,
+            todos
+        }
         case 'add_todo':
-            return addTodo(prevState, action)
-            break;
+            return addTodo(prevState, action);
         case 'delete_todo':
-            return deleteTodo(prevState, action)
-            break;
+            return deleteTodo(prevState, action);
         case 'toggle_todo':
-            return toggleTodo(prevState, action)
-            break;
+            return toggleTodo(prevState, action);
         case 'edit_todo':
-            return editTodo(prevState, action)
-            break;
+            return editTodo(prevState, action);
         default:
             return prevState;
-            break;
-    }
+    };
 }
 
 export default AppReducer;
 
 let addTodo = (prevState, action) => {
-    let { text } = action.payload;
+    let { todo } = action.payload;
+    console.log(todo)
     return {
         ...prevState,
         todos: [
             ...prevState.todos,
-            { key: Date.now(), done: false, text },
+            todo
         ]
     }
 }
@@ -70,36 +72,3 @@ let editTodo = (prevState, action) => {
         ]
     }
 }
-
-// const [todos, setTodos] = useState([])
-
-// const addTodo = (text) => {
-//   setTodos((preveState) => [
-//     ...preveState,
-//     { key: Date.now(), done: false, text },
-//   ]);
-// }
-
-// const deleteTodo = (key) => {
-//   setTodos(
-//     todos.filter(todo => key !== todo.key)
-//   )
-// }
-
-// const editTodo = (key, text) => {
-//   let item = todos.find(item => item.key === key)
-//   item.text = text;
-
-//   let newTodos = todos.filter(item => item.key !== key)
-
-//   setTodos([...newTodos, item])
-// }
-
-// const toggleTodo = (key) => {
-//   let item = todos.find(item => item.key === key)
-//   item.done = !item.done;
-
-//   let newTodos = todos.filter(item => item.key !== key)
-
-//   setTodos([...newTodos, item])
-// }
