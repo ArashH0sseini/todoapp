@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext,useReducer } from "react";
 import EditTodos from "./EditTodos";
+import TodosContext from "../../Contexts/todos";
 
 const Todo = (props) => {
   const [edit, setEdit] = useState(false);
-
-  let editHandler = text => {
-      props.edit(props.items.key,text)
-      setEdit(false)
+  const todosContext = useContext(TodosContext);
+  let editHandler = (text) => {
+    todosContext.dispatch({type:'edit_todo',payload:{key:props.items.key, text}});
+    setEdit(false);
+  };
+  let deleteHandler = (e) => {
+    todosContext.dispatch({ type: "delete_todo", payload: { key: props.items.key } });
   };
   return (
     <>
@@ -20,7 +24,7 @@ const Todo = (props) => {
                   ? "bg-orange-600 p-2 px-4 text-white rounded-lg"
                   : "bg-green-700 p-2 px-4 text-white rounded-lg"
               }
-              onClick={() => props.done(props.items.key)}
+              onClick={() => todosContext.dispatch({type:'toggle_todo',payload:{key:props.items.key}})}
             >
               {props.items.done ? "undone" : "done"}
             </button>
@@ -32,7 +36,7 @@ const Todo = (props) => {
             </button>
             <button
               className="bg-red-600 p-2 px-4 text-white rounded-lg"
-              onClick={() => props.delete(props.items.key)}
+              onClick={deleteHandler}
             >
               delete
             </button>

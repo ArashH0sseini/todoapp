@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import TodosContext from "../../Contexts/todos";
 
-export default function FormAddTodo({ add }) {
+export default function FormAddTodo() {
   const [text, setText] = useState("");
-
+  const todosContext = useContext(TodosContext);
   const formInputHandler = (e) => {
     e.preventDefault();
-    add(text)
-    setText('')
+    todosContext.dispatch({ type: "add_todo", payload: { text } });
+    setText("");
   };
 
   const InputHandler = (e) => setText(e.target.value);

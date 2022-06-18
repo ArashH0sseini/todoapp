@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Todo from "./Todo";
+import TodosContext from "../../Contexts/todos";
 
-export default function TodoList(props) {
+export default function TodoList() {
   const [statusDone, setStatusDone] = useState(false);
-  let filterTodos = props.todos.filter(item => item.done === statusDone)
+  const todosContext = useContext(TodosContext)
+  let filterTodos = todosContext.todos.filter(item => item.done === statusDone)
 
   return (
     <>
@@ -15,7 +17,7 @@ export default function TodoList(props) {
           >
             undone
             <span className="bg-red-700 rounded-lg px-2 text-white text-center mx-1 text-sm ">
-              {props.todos.filter((item) => item.done === false).length}
+              {todosContext.todos.filter((item) => item.done === false).length}
             </span>
           </button>
           <button
@@ -24,7 +26,7 @@ export default function TodoList(props) {
           >
             done
             <span className="bg-green-600 rounded-lg px-2 text-white text-center mx-1 text-sm ">
-              {props.todos.filter((item) => item.done === true).length}
+              {todosContext.todos.filter((item) => item.done === true).length}
             </span>
           </button>
         </div>
@@ -38,9 +40,9 @@ export default function TodoList(props) {
           <Todo
             key={item.key}
             items={item}
-            delete={props.delete}
-            done={props.done}
-            edit={props.edit}
+            delete={todosContext.delete}
+            done={todosContext.done}
+            edit={todosContext.edit}
           />
         ))
       )}
